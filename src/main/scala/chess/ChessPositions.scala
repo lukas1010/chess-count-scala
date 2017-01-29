@@ -123,5 +123,5 @@ object ChessPositions extends App {
   val r = in.nextInt()
   val tokens = Seq.fill(k)('K') ++ Seq.fill(q)('Q') ++ Seq.fill(n)('N') ++ Seq.fill(b)('B') ++ Seq.fill(r)('R')
   val runner = new ChessPositions(M,N,tokens.toList)
-  runner.run()//  runner.run(true) to write results to Stats.txt
+  runner.run()//  runner.run(true) to write results to Count.txt
 }
