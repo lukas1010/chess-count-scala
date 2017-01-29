@@ -55,46 +55,7 @@ class ChessPositions(val m: Int, val n: Int, val tokens: List[Char]) {
   private def solve(i: Int, j: Int,index: Int, tokens: List[Char], board: List[List[Char]],
                      placedPieces: List[Piece], numOfSolutions: Int): Int = {
     val LastPlaced(newBoard, lastX, lastY, newlyPlaced) = place(createPiece(i,j,tokens(index)),board,placedPieces)
-    if(newBoard.nonEmpty)
-    {
-        if(newlyPlaced.size == tokens.size)
-        {
-          printBoard(newBoard,numOfSolutions+1)
-          val isNotReflection = tokens != tokens.reverse
-          if(isNotReflection)
-          {
-            printBoardReflection(newBoard,numOfSolutions+2)
-          }
-          // backtrack
-          val nextSolution = if(isNotReflection) numOfSolutions+2 else numOfSolutions+1
-          val LastDisplaced(displacedBoard,dX,dY,dIndex, newlyDisplaced) = displace(index,tokens,board,newlyPlaced)
-          if(dY+1 < n)
-            solve(dX,dY+1,dIndex,tokens,displacedBoard,newlyDisplaced,nextSolution)
-          else if(dX+1 < m)
-            solve(dX+1,0,dIndex,tokens,displacedBoard,newlyDisplaced,nextSolution)
-          else
-            nextSolution
-        }
-        else
-        {
-          if(lastY +1 < n)
-            solve(lastX,lastY+1,index+1,tokens,newBoard,newlyPlaced,numOfSolutions)
-          else if(lastX+1 < m)
-            solve(lastX+1,0,index+1,tokens,newBoard,newlyPlaced,numOfSolutions)
-          else // backtrack
-          {
-            val LastDisplaced(displacedBoard,dX,dY,dIndex,newlyDisplaced) = displace(index,tokens,board,newlyPlaced)
-            if(dY+1 < n)
-              solve(dX,dY+1,dIndex,tokens,displacedBoard,newlyDisplaced,numOfSolutions)
-            else if(dX+1 < m)
-              solve(dX+1,0,dIndex,tokens,displacedBoard, newlyDisplaced,numOfSolutions)
-            else
-              numOfSolutions
-          }
-        }
-    }
-    else // backtrack
-    {
+    
       val LastDisplaced(displacedBoard,dX,dY,dIndex,newlyDisplaced) = displace(index-1,tokens,board,newlyPlaced)
       if(dY+1 < n)
         solve(dX,dY+1,dIndex,tokens,displacedBoard, newlyDisplaced,numOfSolutions)
@@ -102,7 +63,7 @@ class ChessPositions(val m: Int, val n: Int, val tokens: List[Char]) {
         solve(dX+1,0,dIndex,tokens,displacedBoard, newlyDisplaced,numOfSolutions)
       else
         numOfSolutions
-    }
+    
   }
 
   def run(writeToFile: Boolean = false): Int = {
