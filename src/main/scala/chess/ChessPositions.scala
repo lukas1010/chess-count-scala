@@ -58,6 +58,8 @@ class ChessPositions(val m: Int, val n: Int, val tokens: List[Char]) {
     
     if(newBoard.nonEmpty)
     {
+    }
+    else{
       val LastDisplaced(displacedBoard,dX,dY,dIndex,newlyDisplaced) = displace(index-1,tokens,board,newlyPlaced)
       if(dY+1 < n)
         solve(dX,dY+1,dIndex,tokens,displacedBoard, newlyDisplaced,numOfSolutions)
@@ -65,9 +67,7 @@ class ChessPositions(val m: Int, val n: Int, val tokens: List[Char]) {
         solve(dX+1,0,dIndex,tokens,displacedBoard, newlyDisplaced,numOfSolutions)
       else
         numOfSolutions
-    
     }
-    else{
       
       
   }
